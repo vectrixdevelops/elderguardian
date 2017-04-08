@@ -1,0 +1,133 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "minecrell"
+            url = "http://repo.minecrell.net/releases"
+        }
+        maven {
+            name = "sponge"
+            url = "https://repo.spongepowered.org/maven"
+        }
+    }
+    dependencies {
+        classpath "net.minecrell:VanillaGradle:2.0.3_1"
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+        classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'maven'
+    id 'idea'
+    id 'eclipse'
+    id 'signing'
+    id 'com.github.hierynomus.license' version '0.13.1'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id 'org.spongepowered.plugin' version '0.8.1'
+}
+
+defaultTasks 'licenseFormat', 'build'
+
+group = pluginGroup
+version = "${gameVersion}-${spongeVersion}-${patchVersion}"
+
+apply plugin: "net.minecrell.vanilla.server.library"
+apply plugin: "org.spongepowered.mixin"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+sponge.plugin.id = pluginId
+
+repositories {
+    mavenCentral()
+    maven { url 'https://dl.bintray.com/me4502/maven' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:6.0.0-SNAPSHOT'
+    compile("org.spongepowered:mixin:0.6.8-SNAPSHOT") {
+        exclude module: "launchwrapper"
+        exclude module: "guava"
+    }
+}
+
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
+sourceSets {
+    main {
+        refMap = "mixins.elderguardian.refmap.json"
+    }
+}
+
+jar {
+    manifest.attributes(
+                "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+                "MixinConfigs": "mixins.elderguardian.optimizer.json",
+                "FMLCorePluginContainsFMLMod": true
+    )
+}
+
+minecraft {
+    version = "1.11.2"
+    mappings = "snapshot_20170407"
+}
+
+reobf.jar {
+    mappingType = "SEARGE"
+}
+
+
+signing {
+    required false
+    sign configurations.archives
+}
+
+license {
+    header = file('LICENSE')
+    include '**/*.java'
+
+    ignoreFailures = false
+    strictCheck = true
+
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+jar {
+    classifier = 'dev'
+}
+
+shadowJar {
+    classifier = ''
+    dependencies {
+        exclude(dependency('org.spongepowered:spongeapi:6.0.0-SNAPSHOT'))
+    }
+}
+
+artifacts {
+    archives shadowJar
+    archives javadocJar
+    archives jar
+}
+
+build.dependsOn(shadowJar)
+build.dependsOn(javadocJar)
+build.dependsOn(jar)
