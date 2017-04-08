@@ -7,4 +7,24 @@ ElderGuardian is an optional mixin mod for Guardian that adds extra utilities ot
 
 **This is a work in progress and does not work currently.**
 
+## Contributing
+
+There many ways to contribute to the project. Some being...
+
+- Creating issues for reporting bugs.
+- Contributing to the plugin by making a pull request.
+
+Developers:
+
+To compile the project. Simply type `gradlew`, this will licenseFormat and build the project
+for you.
+
+## Versioning
+
+The versioning follows:
+
+`elderguardian-minecraftversion-spongeapiversion-elderguardianpatchversion`
+
+Ensure that the Minecraft Version and Sponge API version are the same for the one your server is running.
+
 
