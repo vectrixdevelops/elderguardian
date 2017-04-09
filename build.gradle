@@ -28,7 +28,6 @@ plugins {
     id 'eclipse'
     id 'signing'
     id 'com.github.hierynomus.license' version '0.13.1'
-    id 'com.github.johnrengelman.shadow' version '1.2.4'
     id 'org.spongepowered.plugin' version '0.8.1'
 }
 
@@ -73,8 +72,8 @@ sourceSets {
 
 jar {
     manifest.attributes(
-                "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-                "MixinConfigs": "mixins.elderguardian.optimizer.json",
+                "MixinConfigs": "mixins.elderguardian.exploitmodifier.json",
+                "tweakClass": "org.spongepowered.asm.launch.MixinTweaker",
                 "FMLCorePluginContainsFMLMod": true
     )
 }
@@ -112,22 +111,13 @@ task javadocJar(type: Jar) {
 }
 
 jar {
-    classifier = 'dev'
-}
-
-shadowJar {
     classifier = ''
-    dependencies {
-        exclude(dependency('org.spongepowered:spongeapi:6.0.0-SNAPSHOT'))
-    }
 }
 
 artifacts {
-    archives shadowJar
     archives javadocJar
     archives jar
 }
 
-build.dependsOn(shadowJar)
 build.dependsOn(javadocJar)
 build.dependsOn(jar)

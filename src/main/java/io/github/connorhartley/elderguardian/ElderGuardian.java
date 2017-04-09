@@ -23,7 +23,13 @@
  */
 package io.github.connorhartley.elderguardian;
 
+import com.google.inject.Inject;
+import org.slf4j.Logger;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginContainer;
 
 @Plugin(
         id = "elderguardian",
@@ -35,4 +41,36 @@ import org.spongepowered.api.plugin.Plugin;
         }
 )
 public class ElderGuardian {
+
+        @Inject
+        private Logger logger;
+
+        @Inject
+        private PluginContainer container;
+
+        @Listener
+        public void onGamePreInitialization(GamePreInitializationEvent event) {
+                if (PluginState.getState().equals(State.LOADING)) {
+                        PluginState.setState(State.LOADED);
+
+                        this.logger.info("Loaded ElderGuardian " + container.getVersion().get() + " mixin optimizations.");
+                } else if (PluginState.getState().equals(State.LOADED)) {
+                        this.logger.error("Incorrect state. Mixins are already loaded!");
+                } else if (PluginState.getState().equals(State.UNLOADED)) {
+                        this.logger.warn("Did not load mixins.");
+                }
+        }
+
+        @Listener
+        public void onGameInitialization(GameInitializationEvent event) {
+                if (!PluginState.getState().equals(State.LOADED)) {
+                        this.logger.error("ElderGuardian has not been able to load its mixins. Is this in the '/mods' folder?");
+                }
+        }
+
+        public enum State {
+                UNLOADED,
+                LOADING,
+                LOADED
+        }
 }
