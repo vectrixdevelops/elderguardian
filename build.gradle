@@ -74,7 +74,9 @@ jar {
     manifest.attributes(
                 "MixinConfigs": "mixins.elderguardian.exploitmodifier.json",
                 "tweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-                "FMLCorePluginContainsFMLMod": true
+                "TweakOrder": 0,
+                "FMLAT": "elderguardian_mixins_at.cfg",
+                "ForceLoadAsMod": true
     )
 }
 
