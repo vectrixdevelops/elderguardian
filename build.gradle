@@ -119,3 +119,5 @@ artifacts {
 
 build.dependsOn(javadocJar)
 build.dependsOn(jar)
+
+install.dependsOn(reobfJar)
