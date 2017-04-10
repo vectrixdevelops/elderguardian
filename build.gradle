@@ -31,7 +31,7 @@ plugins {
     id 'org.spongepowered.plugin' version '0.8.1'
 }
 
-defaultTasks 'licenseFormat', 'build'
+defaultTasks 'licenseFormat', 'clean', 'build'
 
 group = pluginGroup
 version = "${gameVersion}-${spongeVersion}-${patchVersion}"
@@ -70,19 +70,9 @@ sourceSets {
     }
 }
 
-jar {
-    manifest.attributes(
-                "MixinConfigs": "mixins.elderguardian.exploitmodifier.json",
-                "tweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-                "TweakOrder": 0,
-                "FMLAT": "elderguardian_mixins_at.cfg",
-                "ForceLoadAsMod": true
-    )
-}
-
 minecraft {
-    version = "1.11.2"
-    mappings = "snapshot_20170407"
+    version = "1.11"
+    mappings = "snapshot_20170409"
 }
 
 reobf.jar {
@@ -107,13 +97,20 @@ license {
     }
 }
 
+jar {
+    classifier = ''
+    manifest.attributes(
+            "MixinConfigs": "mixins.elderguardian.exploitmodifier.json",
+            "tweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+            "TweakOrder": 0,
+            "FMLAT": "elderguardian_mixins_at.cfg",
+            "ForceLoadAsMod": true
+    )
+}
+
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc.destinationDir
-}
-
-jar {
-    classifier = ''
 }
 
 artifacts {
