@@ -24,14 +24,16 @@
 package io.github.connorhartley.elderguardian.mixin;
 
 import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraft.network.play.INetHandlerPlayServer;
+import net.minecraft.util.ITickable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = NetHandlerPlayServer.class)
-public class MixinNetHandlerPlayServer {
+@Mixin(value = NetHandlerPlayServer.class, priority = 1001)
+public abstract class MixinNetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     @Shadow private int floatingTickCount;
     @Shadow private int vehicleFloatingTickCount;

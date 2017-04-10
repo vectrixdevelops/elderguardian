@@ -46,8 +46,7 @@ sponge.plugin.id = pluginId
 
 repositories {
     mavenCentral()
-    maven { url 'https://dl.bintray.com/me4502/maven' }
-    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.spongepowered.org/maven' }
 }
 
 dependencies {
