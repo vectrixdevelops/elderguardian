@@ -40,11 +40,11 @@ public abstract class MixinNetHandlerPlayServer implements INetHandlerPlayServer
 
     @Inject(method = "update", at = @At("HEAD"))
     public void onUpdate(CallbackInfo ci) {
-        if (this.floatingTickCount > 70) {
+        if (this.floatingTickCount == 79) {
             this.floatingTickCount = 0;
         }
 
-        if (this.vehicleFloatingTickCount > 70) {
+        if (this.vehicleFloatingTickCount == 79) {
             this.vehicleFloatingTickCount = 0;
         }
     }

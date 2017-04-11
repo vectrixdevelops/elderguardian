@@ -34,7 +34,7 @@ plugins {
 defaultTasks 'licenseFormat', 'clean', 'build'
 
 group = pluginGroup
-version = "${gameVersion}-${spongeVersion}-${patchVersion}"
+version = "${gameVersion}-${spongeVersion}-${pluginVersion}"
 
 apply plugin: "net.minecrell.vanilla.server.library"
 apply plugin: "org.spongepowered.mixin"

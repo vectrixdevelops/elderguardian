@@ -34,7 +34,7 @@ import org.spongepowered.api.plugin.PluginContainer;
 @Plugin(
         id = "elderguardian",
         name = "ElderGuardian",
-        version = "1.11.2-6.0.0-01",
+        version = "1.11-6.0.0-0.1",
         description = "An optional Mixin Mod for Guardian that adds extra utilities otherwise inaccessible from the API.",
         authors = {
                 "Connor Hartley (vectrix)"
