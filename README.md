@@ -5,9 +5,6 @@
 
 ElderGuardian is an optional mixin mod for Guardian that adds extra utilities otherwise inaccessible from the Sponge API.
 
-This project is a work in progress and does work for API 6 but will require new changes for the newer versions of Guardian
-before beta 0.3.
-
 ## Contributing
 
 There many ways to contribute to the project. Some being...
