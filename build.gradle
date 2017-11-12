@@ -16,7 +16,7 @@ buildscript {
     }
     dependencies {
         classpath "net.minecrell:VanillaGradle:2.0.3_1"
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
         classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
     }
 }
@@ -50,8 +50,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.spongepowered:spongeapi:6.0.0-SNAPSHOT'
-    compile("org.spongepowered:mixin:0.6.8-SNAPSHOT") {
+    compile 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
+    compile("org.spongepowered:mixin:0.7.2-SNAPSHOT") {
         exclude module: "launchwrapper"
         exclude module: "guava"
     }
@@ -70,8 +70,8 @@ sourceSets {
 }
 
 minecraft {
-    version = "1.11"
-    mappings = "snapshot_20170409"
+    version = "1.12"
+    mappings = "snapshot_20171112"
 }
 
 reobf.jar {
